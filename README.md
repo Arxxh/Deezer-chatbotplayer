@@ -2,6 +2,9 @@
 
 Backend en NestJS para un chat musical que interpreta comandos tipo Discord y consulta la API pública de Deezer.
 
+# Arquitectura Limpia (Clean Architecture)
+Este proyecto utiliza una arquitectura llamada Clean Arquitecture donde separamos application|domain|infraestructure|interfaces
+
 En este punto el backend ya resuelve:
 
 - chat por comandos como `/play`, `/pause`, `/resume`, `/skip`, `/queue`, `/nowplaying` y `/help`

@@ -9,6 +9,7 @@ export type ChatCommandName =
   | 'playlist'
   | 'unknown';
 
+  // comandos validos para playlist 
 export type PlaylistCommandAction =
   | 'create'
   | 'add'
@@ -29,5 +30,4 @@ export interface ChatCommandIntent {
 }
 
 // command es ChatCommandName(sus tipos)
-// rawMessage es el texto original por el usuario escrito
 // query es el texto que sigue al comando, por ejemplo si el usuario escribe "/play Despacito", el rawMessage es "/play Despacito" y el query es "Despacito"
