@@ -1,0 +1,460 @@
+.workspace {
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  background: #050505;
+  overflow: hidden;
+}
+
+.workspaceBackdrop {
+  position: absolute;
+  inset: -14%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.workspaceBackdrop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at center, transparent 0%, rgba(5, 5, 5, 0.2) 48%, rgba(5, 5, 5, 0.72) 100%),
+    linear-gradient(180deg, rgba(5, 5, 5, 0.3) 0%, rgba(5, 5, 5, 0.58) 52%, rgba(5, 5, 5, 0.88) 100%);
+}
+
+.workspaceTintBase,
+.workspaceTintPrimary,
+.workspaceTintSecondary {
+  position: absolute;
+  border-radius: 999px;
+  transition:
+    background-color 720ms ease,
+    transform 920ms cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 720ms ease;
+  will-change: background-color, transform, opacity;
+}
+
+.workspaceTintBase {
+  inset: 8% 10% 4%;
+  filter: blur(120px);
+  opacity: 0.92;
+}
+
+.workspaceTintPrimary {
+  width: 52vw;
+  height: 52vw;
+  min-width: 360px;
+  min-height: 360px;
+  top: -6%;
+  left: -8%;
+  filter: blur(130px);
+  opacity: 0.82;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.workspaceTintSecondary {
+  width: 44vw;
+  height: 44vw;
+  min-width: 320px;
+  min-height: 320px;
+  right: -10%;
+  bottom: -8%;
+  filter: blur(140px);
+  opacity: 0.66;
+  transform: translate3d(0, 0, 0) scale(1.04);
+}
+
+.hiddenPlayerMount {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.stage {
+  position: relative;
+  min-height: 0;
+  display: grid;
+  grid-template-rows: minmax(0, 1fr);
+  overflow: hidden;
+  z-index: 1;
+}
+
+.emptyState {
+  min-height: 0;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  padding: 20px 32px 56px;
+}
+
+.logoLockup {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin-bottom: 34px;
+}
+
+.heroMark {
+  width: 66px;
+  height: 66px;
+  display: grid;
+  place-items: center;
+  color: #ffffff;
+  opacity: 0.96;
+}
+
+.heroMarkIcon {
+  width: 100%;
+  height: 100%;
+  display: block;
+  filter: drop-shadow(0 10px 24px rgba(255, 255, 255, 0.08));
+}
+
+.heroTitle {
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  font-weight: 600;
+}
+
+.centerComposer {
+  width: min(100%, 760px);
+}
+
+.messageScroll {
+  min-height: 0;
+  overflow: auto;
+  padding: 24px 24px 260px;
+}
+
+.messageColumn {
+  width: min(100%, 820px);
+  margin: 0 auto;
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+
+.assistantMessage,
+.userMessage {
+  max-width: 100%;
+  padding: 16px 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.userMessage {
+  justify-self: end;
+  width: min(100%, 78%);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.assistantMessage {
+  width: min(100%, 82%);
+}
+
+.messageMeta {
+  margin-bottom: 8px;
+  color: rgba(255, 255, 255, 0.42);
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.64rem;
+}
+
+.messageContent {
+  color: rgba(255, 255, 255, 0.9);
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.alternativeList {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+}
+
+.trackCard {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.trackCover {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.72);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+
+.trackCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.trackBody {
+  display: grid;
+  gap: 4px;
+}
+
+.trackBody strong {
+  font-size: 0.92rem;
+}
+
+.trackBody span {
+  color: rgba(255, 255, 255, 0.48);
+  font-size: 0.8rem;
+}
+
+.inlineLink {
+  min-height: 32px;
+  padding: 0 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  display: inline-flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.76rem;
+}
+
+.composerDock {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 0 24px 20px;
+  background:
+    linear-gradient(180deg, rgba(5, 5, 5, 0) 0%, rgba(5, 5, 5, 0.94) 30%, #050505 100%);
+}
+
+.composerShell {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  display: grid;
+  position: relative;
+}
+
+.autocompletePanel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 12px);
+  padding: 8px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(18, 18, 18, 0.94);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.32);
+  display: grid;
+  gap: 4px;
+  transform-origin: bottom center;
+  animation: autocompleteReveal 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: 6;
+}
+
+.autocompleteItem {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: none;
+  background: transparent;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  color: rgba(255, 255, 255, 0.88);
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+  animation: autocompleteItemReveal 220ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.autocompleteItem:nth-child(2) {
+  animation-delay: 24ms;
+}
+
+.autocompleteItem:nth-child(3) {
+  animation-delay: 48ms;
+}
+
+.autocompleteItem:nth-child(4) {
+  animation-delay: 72ms;
+}
+
+.autocompleteItem:nth-child(5) {
+  animation-delay: 96ms;
+}
+
+.autocompleteItem:nth-child(6) {
+  animation-delay: 120ms;
+}
+
+.autocompleteItem:hover,
+.autocompleteItemActive {
+  background: rgba(255, 255, 255, 0.07);
+  transform: translateY(-1px);
+}
+
+.autocompleteLabel {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 0.86rem;
+}
+
+.autocompleteHint {
+  color: rgba(255, 255, 255, 0.42);
+  font-size: 0.74rem;
+  white-space: nowrap;
+}
+
+.composerSurface {
+  min-height: 48px;
+  padding: 8px 8px 8px 18px;
+  border-radius: 28px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(22, 22, 22, 0.9);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 14px;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 28px;
+  max-height: 148px;
+  resize: none;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.96);
+  outline: none;
+  line-height: 1.6;
+  padding-top: 2px;
+}
+
+.composerActions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sendButton {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  color: #060606;
+  font-weight: 700;
+}
+
+.sendButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.errorText {
+  color: #ff8d80;
+  font-size: 0.82rem;
+  padding: 0 6px;
+}
+
+@keyframes autocompleteReveal {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes autocompleteItemReveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .workspaceBackdrop {
+    inset: -20%;
+  }
+
+  .workspaceTintPrimary {
+    width: 88vw;
+    height: 88vw;
+    min-width: 280px;
+    min-height: 280px;
+    left: -18%;
+  }
+
+  .workspaceTintSecondary {
+    width: 72vw;
+    height: 72vw;
+    min-width: 220px;
+    min-height: 220px;
+    right: -22%;
+    bottom: 8%;
+  }
+
+  .messageScroll {
+    padding: 20px 14px 310px;
+  }
+
+  .composerDock,
+  .emptyState {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .assistantMessage,
+  .userMessage {
+    width: 100%;
+  }
+
+  .autocompleteItem {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .autocompleteHint {
+    white-space: normal;
+  }
+
+  .trackCard {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .inlineLink {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+}

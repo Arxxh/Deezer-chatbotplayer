@@ -1,0 +1,93 @@
+:root {
+  --bg: #09090d;
+  --bg-elevated: rgba(16, 16, 22, 0.9);
+  --bg-panel: rgba(19, 19, 28, 0.94);
+  --bg-panel-soft: rgba(22, 22, 31, 0.72);
+  --bg-panel-strong: rgba(28, 28, 39, 0.92);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
+  --line-soft: rgba(255, 255, 255, 0.04);
+  --text: #f6f5f9;
+  --text-muted: #b2aebd;
+  --text-soft: #797482;
+  --accent: #d8defc;
+  --accent-strong: #ffffff;
+  --accent-soft: rgba(181, 194, 255, 0.14);
+  --danger: #ff8d80;
+  --shadow: 0 20px 60px rgba(0, 0, 0, 0.34);
+  --font-sans: "Neue Haas Grotesk Text Pro", "Avenir Next", "IBM Plex Sans", "Segoe UI Variable", sans-serif;
+  --font-mono: "IBM Plex Mono", "SFMono-Regular", "Menlo", monospace;
+}
+
+html {
+  min-height: 100%;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  background:
+    radial-gradient(circle at top, rgba(132, 148, 255, 0.14), transparent 26%),
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.05), transparent 18%),
+    linear-gradient(180deg, #08080b 0%, #0d0d13 45%, #09090d 100%);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+*::selection {
+  background: rgba(187, 198, 255, 0.22);
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+textarea::placeholder,
+input::placeholder {
+  color: rgba(255, 255, 255, 0.34);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+}
