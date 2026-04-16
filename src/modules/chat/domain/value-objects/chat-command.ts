@@ -9,7 +9,7 @@ export type ChatCommandName =
   | 'playlist'
   | 'unknown';
 
-  // comandos validos para playlist 
+// comandos validos para playlist
 export type PlaylistCommandAction =
   | 'create'
   | 'add'

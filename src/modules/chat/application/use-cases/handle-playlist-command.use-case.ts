@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { PLAYLIST_TRACK_LIMIT } from '../../domain/entities/playlist';
+import type { Playlist } from '../../domain/entities/playlist';
 import { ChatCommandIntent } from '../../domain/value-objects/chat-command';
 import { ChatResponse } from '../contracts/chat-response';
 import { PLAYBACK_STATE_PORT } from '../ports/playback-state.port';
@@ -92,10 +93,13 @@ export class HandlePlaylistCommandUseCase {
               )
               .join(' | ')
           : 'sin canciones';
+      const totalDuration = formatPlaylistDuration(
+        getPlaylistDurationSeconds(playlist),
+      );
 
       return {
         command: 'playlist',
-        reply: `Playlist "${playlist.name}" (${playlist.tracks.length}/${PLAYLIST_TRACK_LIMIT}): ${trackText}.`,
+        reply: `Playlist "${playlist.name}" (${playlist.tracks.length}/${PLAYLIST_TRACK_LIMIT} · duración total: ${totalDuration}): ${trackText}.`,
         state,
         alternatives: [],
         suggestions: [
@@ -267,4 +271,40 @@ export class HandlePlaylistCommandUseCase {
       'Comandos playlist: /playlist list, /playlist <nombre>, /playlist create <nombre>, /playlist show <nombre>, /playlist add <playlist> :: <canción>, /playlist delete <nombre>.',
     );
   }
+}
+
+function getPlaylistDurationSeconds(playlist: Playlist) {
+  return playlist.tracks.reduce((totalDuration, track) => {
+    if (!Number.isFinite(track.duration) || track.duration <= 0) {
+      return totalDuration;
+    }
+
+    return totalDuration + track.duration;
+  }, 0);
+}
+
+function formatPlaylistDuration(totalDurationSeconds: number) {
+  if (!Number.isFinite(totalDurationSeconds) || totalDurationSeconds <= 0) {
+    return '0 min';
+  }
+
+  const normalizedDuration = Math.floor(totalDurationSeconds);
+  const hours = Math.floor(normalizedDuration / 3600);
+  const minutes = Math.floor((normalizedDuration % 3600) / 60);
+  const seconds = normalizedDuration % 60;
+  const parts: string[] = [];
+
+  if (hours > 0) {
+    parts.push(`${hours} h`);
+  }
+
+  if (minutes > 0 || hours > 0) {
+    parts.push(`${minutes} min`);
+  }
+
+  if (seconds > 0 && hours === 0) {
+    parts.push(`${seconds} s`);
+  }
+
+  return parts.join(' ');
 }
