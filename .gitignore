@@ -2,6 +2,9 @@
 /dist
 /node_modules
 /build
+/python-backend/.venv
+/python-backend/**/__pycache__
+/python-backend/.pytest_cache
 
 # Logs
 logs

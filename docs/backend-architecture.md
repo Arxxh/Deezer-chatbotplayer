@@ -1,39 +1,45 @@
 # Backend Architecture
 
-El backend está organizado en cuatro capas:
+El backend actual vive en `python-backend/` y usa una estructura modular simple
+centrada en FastAPI.
 
-- `domain`: entidades puras del negocio (`Track`, `PlaybackState`).
-- `application`: casos de uso, contratos de entrada/salida y puertos.
-- `infrastructure`: adaptadores concretos como Deezer e implementación en memoria.
-- `interfaces`: controladores HTTP.
+## Módulos
 
-## Flujo actual
+- `system`: root y health
+- `chat`: entrada del chat, parser y orquestación
+- `playback`: canción actual, cola, pause, resume y skip
+- `playlists`: CRUD y reglas de playlist
+- `integrations`: Deezer, YouTube y Gemini
+- `storage`: persistencia JSON
 
-1. `POST /chat/messages` recibe un mensaje del chat.
-2. `HandleChatMessageUseCase` usa `ChatCommandParserService` para detectar intención.
-3. El caso de uso correspondiente ejecuta la regla (`play`, `pause`, `queue`, etc).
-4. Si hace falta catálogo musical, se usa el puerto `MusicCatalogPort`.
-5. Si hace falta estado de reproducción, se usa el puerto `PlaybackStatePort`.
+## Estructura
 
-## Comandos MVP
+```text
+python-backend/app/
+  core/
+  integrations/
+  modules/
+    chat/
+    playback/
+    playlists/
+    system/
+  shared/
+  storage/
+```
 
-- `/play <texto>`
-- `/pause`
-- `/resume`
-- `/skip`
-- `/queue`
-- `/nowplaying`
-- `/help`
-- `/playlist list`
-- `/playlist create <nombre>`
-- `/playlist show <nombre>`
-- `/playlist add <playlist> :: <canción>`
+## Flujo
 
-También hay soporte inicial para frases como `pon stronger`, `pausa` o `qué suena`.
+1. `POST /api/v1/chat/messages` recibe un mensaje del chat.
+2. `ChatService` usa `ChatCommandParser` para detectar intención.
+3. Según la intención, delega a `PlaybackService` o `PlaylistService`.
+4. Si hace falta buscar canciones, se usa Deezer.
+5. Si hace falta playback completo, se intenta resolver YouTube.
+6. El estado y las playlists se persisten en `var/data/app-state.json`.
 
-## Decisiones intencionales
+## Decisiones
 
-- La reproducción real no vive en el backend. El backend devuelve estado y resultados; el frontend reproducirá el `previewUrl`.
-- El estado ya no es volátil: cola y playlists se persisten en `var/data/app-state.json`, o en la ruta definida por `APP_DATA_FILE`.
-- Cada playlist tiene un límite de 10 canciones como regla de dominio.
-- Deezer está detrás de un puerto para poder reemplazarlo o mockearlo en pruebas.
+- No se metió DB todavía para no mezclar migración de lenguaje con migración de persistencia.
+- La reproducción real sigue viviendo en el frontend.
+- El backend devuelve estado, cola, canciones y metadata reproducible.
+- Se mantuvo compatibilidad con la API existente del frontend.
+- Cada playlist conserva el límite de 10 canciones.

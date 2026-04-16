@@ -1,6 +1,6 @@
 # musicBot Web
 
-Frontend en Next.js para el backend `deezer-api`.
+Frontend en Next.js para el backend Python de `deezer-api`.
 
 ## Objetivo
 
@@ -23,7 +23,11 @@ La app está organizada por capas y módulos:
 ## Variables de entorno
 
 ```bash
-NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:4000/api/v1
+# Opcional. Por defecto usa /api/v1 y Next hace proxy al backend local.
+NEXT_PUBLIC_API_BASE_URL=/api/v1
+
+# Opcional para el proxy interno de Next.
+BACKEND_INTERNAL_ORIGIN=http://127.0.0.1:4000
 ```
 
 Para reproducción completa también necesitas en el backend:
@@ -37,4 +41,10 @@ YOUTUBE_DATA_API_KEY=tu_api_key
 ```bash
 npm install
 npm run dev
+```
+
+Para usar solo localhost sin LAN:
+
+```bash
+npm run dev:local
 ```
